@@ -1,0 +1,1848 @@
+{
+    "name": "Integration Webhooks",
+    "flow": [
+        {
+            "id": 22,
+            "module": "dust:talkToAgent",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8741441
+            },
+            "mapper": {
+                "email": "gderamchi@gmail.com",
+                "message": "Prépare le message",
+                "timezone": "Europe/Paris",
+                "username": "Guillaume Deramchi",
+                "agent_configuration_id": "oG7q88Tewy"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1332,
+                    "y": 1207
+                },
+                "restore": {
+                    "expect": {
+                        "agent_configuration_id": {
+                            "mode": "chose",
+                            "label": "Smart_notifications"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "dust2"
+                            },
+                            "label": "My Dust connection (Connected to Dust (US))"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:dust2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "agent_configuration_id",
+                        "type": "select",
+                        "label": "Agent",
+                        "required": true
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Message",
+                        "required": true
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "Username",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "type": "email",
+                        "label": "Email address",
+                        "required": true
+                    },
+                    {
+                        "name": "timezone",
+                        "type": "text",
+                        "label": "Timezone",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 23,
+            "module": "slack:CreateMessage",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 8782604
+            },
+            "mapper": {
+                "text": "{{22.agent_response}}",
+                "parse": false,
+                "mrkdwn": true,
+                "channel": "U08URG899D0",
+                "channelType": "im",
+                "channelWType": "list"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1632,
+                    "y": 1207
+                },
+                "restore": {
+                    "expect": {
+                        "parse": {
+                            "mode": "chose"
+                        },
+                        "mrkdwn": {
+                            "mode": "chose"
+                        },
+                        "channel": {
+                            "mode": "edit"
+                        },
+                        "link_names": {
+                            "mode": "chose"
+                        },
+                        "channelType": {
+                            "label": "Direct message"
+                        },
+                        "channelWType": {
+                            "label": "Select from the list"
+                        },
+                        "unfurl_links": {
+                            "mode": "chose"
+                        },
+                        "unfurl_media": {
+                            "mode": "chose"
+                        },
+                        "reply_broadcast": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "slack3"
+                            },
+                            "label": "My Slack (bot) connection (hackathonwttj.slack.com - make)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:slack2,slack3",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "channelWType",
+                        "type": "select",
+                        "label": "Enter a channel ID or name",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "manualy",
+                                "list"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text"
+                    },
+                    {
+                        "name": "blocks",
+                        "type": "text",
+                        "label": "Blocks"
+                    },
+                    {
+                        "name": "thread_ts",
+                        "type": "text",
+                        "label": "Thread message ID (time stamp)"
+                    },
+                    {
+                        "name": "reply_broadcast",
+                        "type": "boolean",
+                        "label": "Reply broadcast"
+                    },
+                    {
+                        "name": "link_names",
+                        "type": "boolean",
+                        "label": "Link names"
+                    },
+                    {
+                        "name": "parse",
+                        "type": "boolean",
+                        "label": "Parse message text"
+                    },
+                    {
+                        "name": "mrkdwn",
+                        "type": "boolean",
+                        "label": "Use markdown"
+                    },
+                    {
+                        "name": "unfurl_links",
+                        "type": "boolean",
+                        "label": "Unfurl primarily text-based content"
+                    },
+                    {
+                        "name": "unfurl_media",
+                        "type": "boolean",
+                        "label": "Unfurl media content"
+                    },
+                    {
+                        "name": "icon_emoji",
+                        "type": "text",
+                        "label": "Icon emoji"
+                    },
+                    {
+                        "name": "icon_url",
+                        "type": "url",
+                        "label": "Icon url"
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "channelType",
+                        "type": "select",
+                        "label": "Channel type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "public",
+                                "private",
+                                "im",
+                                "mpim"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "channel",
+                        "type": "select",
+                        "label": "User",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": [
+                [
+                    {
+                        "id": 10,
+                        "module": "gateway:CustomWebHook",
+                        "version": 1,
+                        "parameters": {
+                            "hook": 2476561,
+                            "maxResults": 1
+                        },
+                        "mapper": {},
+                        "metadata": {
+                            "designer": {
+                                "x": -69,
+                                "y": 781,
+                                "messages": [
+                                    {
+                                        "category": "link",
+                                        "severity": "warning",
+                                        "message": "A trigger must be the first module in a scenario."
+                                    }
+                                ]
+                            },
+                            "restore": {
+                                "parameters": {
+                                    "hook": {
+                                        "data": {
+                                            "editable": "true"
+                                        },
+                                        "label": "HR Message received"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "hook",
+                                    "type": "hook:gateway-webhook",
+                                    "label": "Webhook",
+                                    "required": true
+                                },
+                                {
+                                    "name": "maxResults",
+                                    "type": "number",
+                                    "label": "Maximum number of results"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 11,
+                        "module": "gateway:WebhookRespond",
+                        "version": 1,
+                        "parameters": {},
+                        "mapper": {
+                            "body": "Traitement en cours : je vous tiens au courant !",
+                            "status": "200",
+                            "headers": []
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 235,
+                                "y": 790
+                            },
+                            "restore": {
+                                "expect": {
+                                    "headers": {
+                                        "mode": "chose"
+                                    }
+                                }
+                            },
+                            "expect": [
+                                {
+                                    "name": "status",
+                                    "type": "uinteger",
+                                    "label": "Status",
+                                    "required": true,
+                                    "validate": {
+                                        "min": 100
+                                    }
+                                },
+                                {
+                                    "name": "body",
+                                    "type": "any",
+                                    "label": "Body"
+                                },
+                                {
+                                    "name": "headers",
+                                    "spec": [
+                                        {
+                                            "name": "key",
+                                            "type": "text",
+                                            "label": "Key",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 256
+                                            }
+                                        },
+                                        {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Value",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 4096
+                                            }
+                                        }
+                                    ],
+                                    "type": "array",
+                                    "label": "Custom headers",
+                                    "validate": {
+                                        "maxItems": 16
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 12,
+                        "module": "dust:talkToAgent",
+                        "version": 1,
+                        "parameters": {
+                            "__IMTCONN__": 8741441
+                        },
+                        "mapper": {
+                            "email": "gderamchi@gmail.com",
+                            "message": "{{10.text}}",
+                            "timezone": "Europe/Paris",
+                            "username": "{{10.user_name}}",
+                            "agent_configuration_id": "EB21PNPLO9"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 521,
+                                "y": 795
+                            },
+                            "restore": {
+                                "expect": {
+                                    "agent_configuration_id": {
+                                        "mode": "chose",
+                                        "label": "HR_Agent"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "dust2"
+                                        },
+                                        "label": "My Dust connection (Connected to Dust (US))"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:dust2",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "agent_configuration_id",
+                                    "type": "select",
+                                    "label": "Agent",
+                                    "required": true
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "text",
+                                    "label": "Message",
+                                    "required": true
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "Username",
+                                    "required": true
+                                },
+                                {
+                                    "name": "email",
+                                    "type": "email",
+                                    "label": "Email address",
+                                    "required": true
+                                },
+                                {
+                                    "name": "timezone",
+                                    "type": "text",
+                                    "label": "Timezone",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 13,
+                        "module": "slack:CreateMessage",
+                        "version": 4,
+                        "parameters": {
+                            "__IMTCONN__": 8782604
+                        },
+                        "mapper": {
+                            "text": "{{12.agent_response}}",
+                            "parse": false,
+                            "mrkdwn": true,
+                            "channel": "{{10.channel_id}}",
+                            "channelType": "public",
+                            "channelWType": "list"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 823,
+                                "y": 800
+                            },
+                            "restore": {
+                                "expect": {
+                                    "parse": {
+                                        "mode": "chose"
+                                    },
+                                    "mrkdwn": {
+                                        "mode": "chose"
+                                    },
+                                    "channel": {
+                                        "mode": "edit"
+                                    },
+                                    "link_names": {
+                                        "mode": "chose"
+                                    },
+                                    "channelType": {
+                                        "label": "Public channel"
+                                    },
+                                    "channelWType": {
+                                        "label": "Select from the list"
+                                    },
+                                    "unfurl_links": {
+                                        "mode": "chose"
+                                    },
+                                    "unfurl_media": {
+                                        "mode": "chose"
+                                    },
+                                    "reply_broadcast": {
+                                        "mode": "chose"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "slack3"
+                                        },
+                                        "label": "My Slack (bot) connection (hackathonwttj.slack.com - make)"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:slack2,slack3",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "channelWType",
+                                    "type": "select",
+                                    "label": "Enter a channel ID or name",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "manualy",
+                                            "list"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "text",
+                                    "type": "text",
+                                    "label": "Text"
+                                },
+                                {
+                                    "name": "blocks",
+                                    "type": "text",
+                                    "label": "Blocks"
+                                },
+                                {
+                                    "name": "thread_ts",
+                                    "type": "text",
+                                    "label": "Thread message ID (time stamp)"
+                                },
+                                {
+                                    "name": "reply_broadcast",
+                                    "type": "boolean",
+                                    "label": "Reply broadcast"
+                                },
+                                {
+                                    "name": "link_names",
+                                    "type": "boolean",
+                                    "label": "Link names"
+                                },
+                                {
+                                    "name": "parse",
+                                    "type": "boolean",
+                                    "label": "Parse message text"
+                                },
+                                {
+                                    "name": "mrkdwn",
+                                    "type": "boolean",
+                                    "label": "Use markdown"
+                                },
+                                {
+                                    "name": "unfurl_links",
+                                    "type": "boolean",
+                                    "label": "Unfurl primarily text-based content"
+                                },
+                                {
+                                    "name": "unfurl_media",
+                                    "type": "boolean",
+                                    "label": "Unfurl media content"
+                                },
+                                {
+                                    "name": "icon_emoji",
+                                    "type": "text",
+                                    "label": "Icon emoji"
+                                },
+                                {
+                                    "name": "icon_url",
+                                    "type": "url",
+                                    "label": "Icon url"
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "User name"
+                                },
+                                {
+                                    "name": "channelType",
+                                    "type": "select",
+                                    "label": "Channel type",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "public",
+                                            "private",
+                                            "im",
+                                            "mpim"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "channel",
+                                    "type": "select",
+                                    "label": "Public channel",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    }
+                ],
+                [
+                    {
+                        "id": 1,
+                        "module": "gateway:CustomWebHook",
+                        "version": 1,
+                        "parameters": {
+                            "hook": 2475420,
+                            "maxResults": 1
+                        },
+                        "mapper": {},
+                        "metadata": {
+                            "designer": {
+                                "x": 0,
+                                "y": 0,
+                                "messages": [
+                                    {
+                                        "category": "link",
+                                        "severity": "warning",
+                                        "message": "A trigger must be the first module in a scenario."
+                                    }
+                                ]
+                            },
+                            "restore": {
+                                "parameters": {
+                                    "hook": {
+                                        "data": {
+                                            "editable": "true"
+                                        },
+                                        "label": "Slack message received"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "hook",
+                                    "type": "hook:gateway-webhook",
+                                    "label": "Webhook",
+                                    "required": true
+                                },
+                                {
+                                    "name": "maxResults",
+                                    "type": "number",
+                                    "label": "Maximum number of results"
+                                }
+                            ],
+                            "interface": [
+                                {
+                                    "name": "token",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "team_id",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "team_domain",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "channel_id",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "channel_name",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "user_id",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "user_name",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "command",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "text",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "api_app_id",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "is_enterprise_install",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "response_url",
+                                    "type": "text"
+                                },
+                                {
+                                    "name": "trigger_id",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "module": "gateway:WebhookRespond",
+                        "version": 1,
+                        "parameters": {},
+                        "mapper": {
+                            "body": "Traitement en cours : je vous tiens au courant !",
+                            "status": "200",
+                            "headers": []
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 300,
+                                "y": 0
+                            },
+                            "restore": {
+                                "expect": {
+                                    "headers": {
+                                        "mode": "chose"
+                                    }
+                                }
+                            },
+                            "expect": [
+                                {
+                                    "name": "status",
+                                    "type": "uinteger",
+                                    "label": "Status",
+                                    "required": true,
+                                    "validate": {
+                                        "min": 100
+                                    }
+                                },
+                                {
+                                    "name": "body",
+                                    "type": "any",
+                                    "label": "Body"
+                                },
+                                {
+                                    "name": "headers",
+                                    "spec": [
+                                        {
+                                            "name": "key",
+                                            "type": "text",
+                                            "label": "Key",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 256
+                                            }
+                                        },
+                                        {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Value",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 4096
+                                            }
+                                        }
+                                    ],
+                                    "type": "array",
+                                    "label": "Custom headers",
+                                    "validate": {
+                                        "maxItems": 16
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 3,
+                        "module": "dust:talkToAgent",
+                        "version": 1,
+                        "parameters": {
+                            "__IMTCONN__": 8741441
+                        },
+                        "mapper": {
+                            "email": "gderamchi@gmail.com",
+                            "message": "{{1.text}}",
+                            "timezone": "Europe/Paris",
+                            "username": "{{1.user_name}}",
+                            "agent_configuration_id": "F4Y3URdWQY"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 600,
+                                "y": 0
+                            },
+                            "restore": {
+                                "expect": {
+                                    "agent_configuration_id": {
+                                        "mode": "chose",
+                                        "label": "HybrideCoach"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "dust2"
+                                        },
+                                        "label": "My Dust connection (Connected to Dust (US))"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:dust2",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "agent_configuration_id",
+                                    "type": "select",
+                                    "label": "Agent",
+                                    "required": true
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "text",
+                                    "label": "Message",
+                                    "required": true
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "Username",
+                                    "required": true
+                                },
+                                {
+                                    "name": "email",
+                                    "type": "email",
+                                    "label": "Email address",
+                                    "required": true
+                                },
+                                {
+                                    "name": "timezone",
+                                    "type": "text",
+                                    "label": "Timezone",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "module": "slack:CreateMessage",
+                        "version": 4,
+                        "parameters": {
+                            "__IMTCONN__": 8782604
+                        },
+                        "mapper": {
+                            "text": "{{3.agent_response}}",
+                            "parse": false,
+                            "mrkdwn": true,
+                            "channel": "C08U4GHK0H5",
+                            "channelType": "public",
+                            "channelWType": "list"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 900,
+                                "y": 0
+                            },
+                            "restore": {
+                                "expect": {
+                                    "parse": {
+                                        "mode": "chose"
+                                    },
+                                    "mrkdwn": {
+                                        "mode": "chose"
+                                    },
+                                    "channel": {
+                                        "mode": "chose",
+                                        "label": "team-1-dust-intégration"
+                                    },
+                                    "link_names": {
+                                        "mode": "chose"
+                                    },
+                                    "channelType": {
+                                        "label": "Public channel"
+                                    },
+                                    "channelWType": {
+                                        "label": "Select from the list"
+                                    },
+                                    "unfurl_links": {
+                                        "mode": "chose"
+                                    },
+                                    "unfurl_media": {
+                                        "mode": "chose"
+                                    },
+                                    "reply_broadcast": {
+                                        "mode": "chose"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "slack3"
+                                        },
+                                        "label": "My Slack (bot) connection"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:slack2,slack3",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "channelWType",
+                                    "type": "select",
+                                    "label": "Enter a channel ID or name",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "manualy",
+                                            "list"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "text",
+                                    "type": "text",
+                                    "label": "Text"
+                                },
+                                {
+                                    "name": "blocks",
+                                    "type": "text",
+                                    "label": "Blocks"
+                                },
+                                {
+                                    "name": "thread_ts",
+                                    "type": "text",
+                                    "label": "Thread message ID (time stamp)"
+                                },
+                                {
+                                    "name": "reply_broadcast",
+                                    "type": "boolean",
+                                    "label": "Reply broadcast"
+                                },
+                                {
+                                    "name": "link_names",
+                                    "type": "boolean",
+                                    "label": "Link names"
+                                },
+                                {
+                                    "name": "parse",
+                                    "type": "boolean",
+                                    "label": "Parse message text"
+                                },
+                                {
+                                    "name": "mrkdwn",
+                                    "type": "boolean",
+                                    "label": "Use markdown"
+                                },
+                                {
+                                    "name": "unfurl_links",
+                                    "type": "boolean",
+                                    "label": "Unfurl primarily text-based content"
+                                },
+                                {
+                                    "name": "unfurl_media",
+                                    "type": "boolean",
+                                    "label": "Unfurl media content"
+                                },
+                                {
+                                    "name": "icon_emoji",
+                                    "type": "text",
+                                    "label": "Icon emoji"
+                                },
+                                {
+                                    "name": "icon_url",
+                                    "type": "url",
+                                    "label": "Icon url"
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "User name"
+                                },
+                                {
+                                    "name": "channelType",
+                                    "type": "select",
+                                    "label": "Channel type",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "public",
+                                            "private",
+                                            "im",
+                                            "mpim"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "channel",
+                                    "type": "select",
+                                    "label": "Public channel",
+                                    "required": true
+                                },
+                                {
+                                    "name": "channelWType",
+                                    "type": "select",
+                                    "label": "Enter a channel ID or name",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "manualy",
+                                            "list"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "text",
+                                    "type": "text",
+                                    "label": "Text"
+                                },
+                                {
+                                    "name": "blocks",
+                                    "type": "text",
+                                    "label": "Blocks"
+                                },
+                                {
+                                    "name": "thread_ts",
+                                    "type": "text",
+                                    "label": "Thread message ID (time stamp)"
+                                },
+                                {
+                                    "name": "reply_broadcast",
+                                    "type": "boolean",
+                                    "label": "Reply broadcast"
+                                },
+                                {
+                                    "name": "link_names",
+                                    "type": "boolean",
+                                    "label": "Link names"
+                                },
+                                {
+                                    "name": "parse",
+                                    "type": "boolean",
+                                    "label": "Parse message text"
+                                },
+                                {
+                                    "name": "mrkdwn",
+                                    "type": "boolean",
+                                    "label": "Use markdown"
+                                },
+                                {
+                                    "name": "unfurl_links",
+                                    "type": "boolean",
+                                    "label": "Unfurl primarily text-based content"
+                                },
+                                {
+                                    "name": "unfurl_media",
+                                    "type": "boolean",
+                                    "label": "Unfurl media content"
+                                },
+                                {
+                                    "name": "icon_emoji",
+                                    "type": "text",
+                                    "label": "Icon emoji"
+                                },
+                                {
+                                    "name": "icon_url",
+                                    "type": "url",
+                                    "label": "Icon url"
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "User name"
+                                },
+                                {
+                                    "name": "channelType",
+                                    "type": "select",
+                                    "label": "Channel type",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "public",
+                                            "private",
+                                            "im",
+                                            "mpim"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "channel",
+                                    "type": "select",
+                                    "label": "Public channel",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    }
+                ],
+                [
+                    {
+                        "id": 14,
+                        "module": "gateway:CustomWebHook",
+                        "version": 1,
+                        "parameters": {
+                            "hook": 2476585,
+                            "maxResults": 1
+                        },
+                        "mapper": {},
+                        "metadata": {
+                            "designer": {
+                                "x": -244,
+                                "y": 1187,
+                                "messages": [
+                                    {
+                                        "category": "link",
+                                        "severity": "warning",
+                                        "message": "A trigger must be the first module in a scenario."
+                                    }
+                                ]
+                            },
+                            "restore": {
+                                "parameters": {
+                                    "hook": {
+                                        "data": {
+                                            "editable": "true"
+                                        },
+                                        "label": "Manager message received"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "hook",
+                                    "type": "hook:gateway-webhook",
+                                    "label": "Webhook",
+                                    "required": true
+                                },
+                                {
+                                    "name": "maxResults",
+                                    "type": "number",
+                                    "label": "Maximum number of results"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 15,
+                        "module": "gateway:WebhookRespond",
+                        "version": 1,
+                        "parameters": {},
+                        "mapper": {
+                            "body": "Traitement en cours : je vous tiens au courant !",
+                            "status": "200",
+                            "headers": []
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 34,
+                                "y": 1211
+                            },
+                            "restore": {
+                                "expect": {
+                                    "headers": {
+                                        "mode": "chose"
+                                    }
+                                }
+                            },
+                            "expect": [
+                                {
+                                    "name": "status",
+                                    "type": "uinteger",
+                                    "label": "Status",
+                                    "required": true,
+                                    "validate": {
+                                        "min": 100
+                                    }
+                                },
+                                {
+                                    "name": "body",
+                                    "type": "any",
+                                    "label": "Body"
+                                },
+                                {
+                                    "name": "headers",
+                                    "spec": [
+                                        {
+                                            "name": "key",
+                                            "type": "text",
+                                            "label": "Key",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 256
+                                            }
+                                        },
+                                        {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Value",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 4096
+                                            }
+                                        }
+                                    ],
+                                    "type": "array",
+                                    "label": "Custom headers",
+                                    "validate": {
+                                        "maxItems": 16
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 16,
+                        "module": "dust:talkToAgent",
+                        "version": 1,
+                        "parameters": {
+                            "__IMTCONN__": 8741441
+                        },
+                        "mapper": {
+                            "email": "gderamchi@gmail.com",
+                            "message": "{{14.text}}",
+                            "timezone": "Europe/Paris",
+                            "username": "{{14.user_name}}",
+                            "agent_configuration_id": "9yzLz7Oych"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 340,
+                                "y": 1222
+                            },
+                            "restore": {
+                                "expect": {
+                                    "agent_configuration_id": {
+                                        "mode": "chose",
+                                        "label": "Manager_agent"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "dust2"
+                                        },
+                                        "label": "My Dust connection (Connected to Dust (US))"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:dust2",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "agent_configuration_id",
+                                    "type": "select",
+                                    "label": "Agent",
+                                    "required": true
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "text",
+                                    "label": "Message",
+                                    "required": true
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "Username",
+                                    "required": true
+                                },
+                                {
+                                    "name": "email",
+                                    "type": "email",
+                                    "label": "Email address",
+                                    "required": true
+                                },
+                                {
+                                    "name": "timezone",
+                                    "type": "text",
+                                    "label": "Timezone",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 17,
+                        "module": "slack:CreateMessage",
+                        "version": 4,
+                        "parameters": {
+                            "__IMTCONN__": 8782604
+                        },
+                        "mapper": {
+                            "text": "{{16.agent_response}}",
+                            "parse": false,
+                            "mrkdwn": true,
+                            "channel": "{{14.channel_name}}",
+                            "channelType": "public",
+                            "channelWType": "list"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 646,
+                                "y": 1218
+                            },
+                            "restore": {
+                                "expect": {
+                                    "parse": {
+                                        "mode": "chose"
+                                    },
+                                    "mrkdwn": {
+                                        "mode": "chose"
+                                    },
+                                    "channel": {
+                                        "mode": "edit"
+                                    },
+                                    "link_names": {
+                                        "mode": "chose"
+                                    },
+                                    "channelType": {
+                                        "label": "Public channel"
+                                    },
+                                    "channelWType": {
+                                        "label": "Select from the list"
+                                    },
+                                    "unfurl_links": {
+                                        "mode": "chose"
+                                    },
+                                    "unfurl_media": {
+                                        "mode": "chose"
+                                    },
+                                    "reply_broadcast": {
+                                        "mode": "chose"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "slack3"
+                                        },
+                                        "label": "My Slack (bot) connection (hackathonwttj.slack.com - make)"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:slack2,slack3",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "channelWType",
+                                    "type": "select",
+                                    "label": "Enter a channel ID or name",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "manualy",
+                                            "list"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "text",
+                                    "type": "text",
+                                    "label": "Text"
+                                },
+                                {
+                                    "name": "blocks",
+                                    "type": "text",
+                                    "label": "Blocks"
+                                },
+                                {
+                                    "name": "thread_ts",
+                                    "type": "text",
+                                    "label": "Thread message ID (time stamp)"
+                                },
+                                {
+                                    "name": "reply_broadcast",
+                                    "type": "boolean",
+                                    "label": "Reply broadcast"
+                                },
+                                {
+                                    "name": "link_names",
+                                    "type": "boolean",
+                                    "label": "Link names"
+                                },
+                                {
+                                    "name": "parse",
+                                    "type": "boolean",
+                                    "label": "Parse message text"
+                                },
+                                {
+                                    "name": "mrkdwn",
+                                    "type": "boolean",
+                                    "label": "Use markdown"
+                                },
+                                {
+                                    "name": "unfurl_links",
+                                    "type": "boolean",
+                                    "label": "Unfurl primarily text-based content"
+                                },
+                                {
+                                    "name": "unfurl_media",
+                                    "type": "boolean",
+                                    "label": "Unfurl media content"
+                                },
+                                {
+                                    "name": "icon_emoji",
+                                    "type": "text",
+                                    "label": "Icon emoji"
+                                },
+                                {
+                                    "name": "icon_url",
+                                    "type": "url",
+                                    "label": "Icon url"
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "User name"
+                                },
+                                {
+                                    "name": "channelType",
+                                    "type": "select",
+                                    "label": "Channel type",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "public",
+                                            "private",
+                                            "im",
+                                            "mpim"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "channel",
+                                    "type": "select",
+                                    "label": "Public channel",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    }
+                ],
+                [
+                    {
+                        "id": 6,
+                        "module": "gateway:CustomWebHook",
+                        "version": 1,
+                        "parameters": {
+                            "hook": 2476500,
+                            "maxResults": 1
+                        },
+                        "mapper": {},
+                        "metadata": {
+                            "designer": {
+                                "x": -47,
+                                "y": 392,
+                                "messages": [
+                                    {
+                                        "category": "link",
+                                        "severity": "warning",
+                                        "message": "A trigger must be the first module in a scenario."
+                                    }
+                                ]
+                            },
+                            "restore": {
+                                "parameters": {
+                                    "hook": {
+                                        "data": {
+                                            "editable": "true"
+                                        },
+                                        "label": "Office Management Command"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "hook",
+                                    "type": "hook:gateway-webhook",
+                                    "label": "Webhook",
+                                    "required": true
+                                },
+                                {
+                                    "name": "maxResults",
+                                    "type": "number",
+                                    "label": "Maximum number of results"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 7,
+                        "module": "gateway:WebhookRespond",
+                        "version": 1,
+                        "parameters": {},
+                        "mapper": {
+                            "body": "Traitement en cours : je vous tiens au courant !",
+                            "status": "200",
+                            "headers": []
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 214,
+                                "y": 387
+                            },
+                            "restore": {
+                                "expect": {
+                                    "headers": {
+                                        "mode": "chose"
+                                    }
+                                }
+                            },
+                            "expect": [
+                                {
+                                    "name": "status",
+                                    "type": "uinteger",
+                                    "label": "Status",
+                                    "required": true,
+                                    "validate": {
+                                        "min": 100
+                                    }
+                                },
+                                {
+                                    "name": "body",
+                                    "type": "any",
+                                    "label": "Body"
+                                },
+                                {
+                                    "name": "headers",
+                                    "spec": [
+                                        {
+                                            "name": "key",
+                                            "type": "text",
+                                            "label": "Key",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 256
+                                            }
+                                        },
+                                        {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Value",
+                                            "required": true,
+                                            "validate": {
+                                                "max": 4096
+                                            }
+                                        }
+                                    ],
+                                    "type": "array",
+                                    "label": "Custom headers",
+                                    "validate": {
+                                        "maxItems": 16
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 8,
+                        "module": "dust:talkToAgent",
+                        "version": 1,
+                        "parameters": {
+                            "__IMTCONN__": 8741441
+                        },
+                        "mapper": {
+                            "email": "gderamchi@gmail.com",
+                            "message": "{{6.text}}",
+                            "timezone": "Europe/Paris",
+                            "username": "{{6.user_name}}",
+                            "agent_configuration_id": "oKsNXXGOxv"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 477,
+                                "y": 390
+                            },
+                            "restore": {
+                                "expect": {
+                                    "agent_configuration_id": {
+                                        "mode": "chose",
+                                        "label": "OfficeMgmtAgent"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "dust2"
+                                        },
+                                        "label": "My Dust connection (Connected to Dust (US))"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:dust2",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "agent_configuration_id",
+                                    "type": "select",
+                                    "label": "Agent",
+                                    "required": true
+                                },
+                                {
+                                    "name": "message",
+                                    "type": "text",
+                                    "label": "Message",
+                                    "required": true
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "Username",
+                                    "required": true
+                                },
+                                {
+                                    "name": "email",
+                                    "type": "email",
+                                    "label": "Email address",
+                                    "required": true
+                                },
+                                {
+                                    "name": "timezone",
+                                    "type": "text",
+                                    "label": "Timezone",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": 9,
+                        "module": "slack:CreateMessage",
+                        "version": 4,
+                        "parameters": {
+                            "__IMTCONN__": 8782604
+                        },
+                        "mapper": {
+                            "text": "{{8.agent_response}}",
+                            "parse": false,
+                            "mrkdwn": true,
+                            "channel": "{{6.channel_name}}",
+                            "channelType": "public",
+                            "channelWType": "list"
+                        },
+                        "metadata": {
+                            "designer": {
+                                "x": 786,
+                                "y": 385
+                            },
+                            "restore": {
+                                "expect": {
+                                    "parse": {
+                                        "mode": "chose"
+                                    },
+                                    "mrkdwn": {
+                                        "mode": "chose"
+                                    },
+                                    "channel": {
+                                        "mode": "edit"
+                                    },
+                                    "link_names": {
+                                        "mode": "chose"
+                                    },
+                                    "channelType": {
+                                        "label": "Public channel"
+                                    },
+                                    "channelWType": {
+                                        "label": "Select from the list"
+                                    },
+                                    "unfurl_links": {
+                                        "mode": "chose"
+                                    },
+                                    "unfurl_media": {
+                                        "mode": "chose"
+                                    },
+                                    "reply_broadcast": {
+                                        "mode": "chose"
+                                    }
+                                },
+                                "parameters": {
+                                    "__IMTCONN__": {
+                                        "data": {
+                                            "scoped": "true",
+                                            "connection": "slack3"
+                                        },
+                                        "label": "My Slack (bot) connection (hackathonwttj.slack.com - make)"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "name": "__IMTCONN__",
+                                    "type": "account:slack2,slack3",
+                                    "label": "Connection",
+                                    "required": true
+                                }
+                            ],
+                            "expect": [
+                                {
+                                    "name": "channelWType",
+                                    "type": "select",
+                                    "label": "Enter a channel ID or name",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "manualy",
+                                            "list"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "text",
+                                    "type": "text",
+                                    "label": "Text"
+                                },
+                                {
+                                    "name": "blocks",
+                                    "type": "text",
+                                    "label": "Blocks"
+                                },
+                                {
+                                    "name": "thread_ts",
+                                    "type": "text",
+                                    "label": "Thread message ID (time stamp)"
+                                },
+                                {
+                                    "name": "reply_broadcast",
+                                    "type": "boolean",
+                                    "label": "Reply broadcast"
+                                },
+                                {
+                                    "name": "link_names",
+                                    "type": "boolean",
+                                    "label": "Link names"
+                                },
+                                {
+                                    "name": "parse",
+                                    "type": "boolean",
+                                    "label": "Parse message text"
+                                },
+                                {
+                                    "name": "mrkdwn",
+                                    "type": "boolean",
+                                    "label": "Use markdown"
+                                },
+                                {
+                                    "name": "unfurl_links",
+                                    "type": "boolean",
+                                    "label": "Unfurl primarily text-based content"
+                                },
+                                {
+                                    "name": "unfurl_media",
+                                    "type": "boolean",
+                                    "label": "Unfurl media content"
+                                },
+                                {
+                                    "name": "icon_emoji",
+                                    "type": "text",
+                                    "label": "Icon emoji"
+                                },
+                                {
+                                    "name": "icon_url",
+                                    "type": "url",
+                                    "label": "Icon url"
+                                },
+                                {
+                                    "name": "username",
+                                    "type": "text",
+                                    "label": "User name"
+                                },
+                                {
+                                    "name": "channelType",
+                                    "type": "select",
+                                    "label": "Channel type",
+                                    "required": true,
+                                    "validate": {
+                                        "enum": [
+                                            "public",
+                                            "private",
+                                            "im",
+                                            "mpim"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "channel",
+                                    "type": "select",
+                                    "label": "Public channel",
+                                    "required": true
+                                }
+                            ]
+                        }
+                    }
+                ]
+            ]
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
