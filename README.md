@@ -1,6 +1,6 @@
 # README – OfficePulse
 
-Cette solution combine un workflow Make (fichier JSON à copier-coller), un webhook Slack en trigger principal, un webhook secondaire pour bypasser le timeout Slack, et un agent Dust (Claude 4 en mode déterministe) connecté à des onglets Google Sheets. Quatre commandes slash (`/pulse`, `/hr`, `/om`, `/management`) permettent d'interroger directement l'agent Dust depuis Slack, qui puise dans les données de pulse_log et renvoie la réponse dans Slack. Un workflow Form Slack gère la déclaration / annulation des présences, et un tableau Looker Studio affiche en temps réel les statistiques de fréquentation.
+Cette solution combine un workflow Make ([fichier JSON](blueprint.json) à copier-coller), un webhook Slack en trigger principal, un webhook secondaire pour bypasser le timeout Slack, et un agent Dust (Claude 4 en mode déterministe) connecté à des onglets Google Sheets. Quatre commandes slash (`/pulse`, `/hr`, `/om`, `/management`) permettent d'interroger directement l'agent Dust depuis Slack, qui puise dans les données de pulse_log et renvoie la réponse dans Slack. Un workflow Form Slack gère la déclaration / annulation des présences, et un tableau Looker Studio affiche en temps réel les statistiques de fréquentation.
 
 ---
 
